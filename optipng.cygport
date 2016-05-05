@@ -1,0 +1,21 @@
+NAME="optipng"
+VERSION=0.7.6
+RELEASE=1
+CATEGORY="Graphics"
+SUMMARY="PNG optimizer"
+DESCRIPTION="OptiPNG is a PNG optimizer that recompresses image files to a
+smaller size, without losing any information. This program also converts
+external formats (BMP, GIF, PNM and TIFF) to optimized PNG, and performs PNG
+integrity checks and corrections."
+HOMEPAGE="http://optipng.sourceforge.net/"
+SRC_URI="mirror://sourceforge/optipng/optipng-${VERSION}.tar.gz"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	rm -fr src/libpng src/zlib
+	./configure \
+		--prefix=/usr --mandir=/usr/share/man \
+		--with-system-libpng --with-system-zlib
+	cygmake CFLAGS="${CFLAGS}"
+}
